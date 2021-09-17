@@ -145,12 +145,8 @@ const Tshirt = (props) => {
         material-bumpMap={bumpMap}
         material-map={design.BODY_FRONT_OUTER.design}
         material-map-matrixAutoUpdate={design.BODY_FRONT_OUTER.status}
-        // material-map-offset-x={design.BODY_FRONT_OUTER.x}
-        // material-map-offset-y={design.BODY_FRONT_OUTER.y}
-        material-map-center={[
-          design.BODY_FRONT_OUTER.x,
-          design.BODY_FRONT_OUTER.y,
-        ]}
+        material-map-offset-x={design.BODY_FRONT_OUTER.x}
+        material-map-offset-y={design.BODY_FRONT_OUTER.y}
       />
     </group>
   );
