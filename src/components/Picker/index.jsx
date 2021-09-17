@@ -111,6 +111,7 @@ const Picker = (props) => {
       //   img
       // );
       texture.flipY = false;
+      //texture.matrixAutoUpdate = false;
 
       if (applyAll) handleAddDesign(texture, 'ALL');
 
@@ -178,7 +179,7 @@ const Picker = (props) => {
           <button onClick={() => handleApply(false)}>Apply</button>
         </>
       )}
-      <button onClick={() => handleApply(true)}>Apply All</button>
+      {/* <button onClick={() => handleApply(true)}>Apply All</button> */}
 
       <button onClick={handleGenerateStar}>Add Star</button>
       <button onClick={handleQuadangles}>Add Rectangle</button>

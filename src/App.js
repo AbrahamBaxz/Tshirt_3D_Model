@@ -21,11 +21,11 @@ function App() {
   //   y: -0.16,
   // });
   const part = useSelector((state) => state.part);
-  // console.log(
-  //   '%c 🏦🏦🏦🏦🏦🏦: App -> part ',
-  //   'font-size:16px;background-color:#dd07c8;color:white;',
-  //   part
-  // );
+  console.log(
+    '%c 🏦🏦🏦🏦🏦🏦: App -> part ',
+    'font-size:16px;background-color:#dd07c8;color:white;',
+    part
+  );
   // const normal = useSelector((state) => state.normal);
   // const bump = useSelector((state) => state.bump);
   const texture = useSelector((state) => state.texture);
@@ -38,8 +38,8 @@ function App() {
 
   const dispatch = useDispatch();
 
-  const handleSetPart = (part) => {
-    dispatch(changePart(part));
+  const handleSetPart = (e) => {
+    dispatch(changePart(e.target.value));
   };
 
   const handleChangeTexture = (e) => {
@@ -75,6 +75,10 @@ function App() {
     dispatch(moveDesignY(e.target.value / 100, part));
   };
 
+  // const onMouseUp = (axis) => {
+  //   dispatch(changeStatus(axis, part));
+  // };
+
   return (
     <div>
       <select onChange={handleChangeTexture}>
@@ -82,48 +86,66 @@ function App() {
         <option value="FABRIC_034">FABRIC 034 </option>
         <option value="FABRIC_NYLON">FABRIC NYLON</option>
       </select>
+      <select onChange={handleSetPart}>
+        <option value="null">Choose a part</option>
+        <option value="ALL">ALL</option>
+        <option value="BODY_FRONT_OUTER">BODY_FRONT_OUTER</option>
+        <option value="BODY_BACK_OUTER">BODY_BACK_OUTER</option>
+        <option value="SLEEVE_LEFT_OUTER">SLEEVE_LEFT_OUTER</option>
+        <option value="SLEEVE_RIGHT_OUTER">SLEEVE_RIGHT_OUTER</option>
+        {/* <option value=""></option>
+        <option value=""></option>
+        <option value=""></option>
+        <option value=""></option> */}
+      </select>
       <button onClick={handleCleanShirt}>Clean T-shirt</button>
-      {/* {part === 'BODY_FRONT_OUTER' && (
-        <>
-          
-          <label>X</label>
-          <input
-            type="range"
-            min={-35}
-            max={35}
-            value={design.BODY_FRONT_OUTER.x * 100}
-            onChange={handleXRange}
-          />
-          <label>Y</label>
-          <input
-            type="range"
-            min={-40}
-            max={8}
-            value={design.BODY_FRONT_OUTER.y * 100}
-            onChange={handleYRange}
-          />
-        </>
-      )} */}
-      {part !== null && design[part].design.name !== 'whitePNG' && (
-        <>
-          <label>X</label>
-          <input
-            type="range"
-            min={design[part].Xmin} //-29
-            max={design[part].Xmax} // 35
-            value={design[part].x * 100}
-            onChange={handleXRange}
-          />
-          <label>Y</label>
-          <input
-            type="range"
-            min={design[part].Ymin} //-40
-            max={design[part].Ymax} //8
-            value={design[part].y * 100}
-            onChange={handleYRange}
-          />
-        </>
-      )}
+
+      {/* {part !== null &&
+        part === 'ALL' &&
+        design.BODY_FRONT_OUTER.design.name !== 'whitePNG' && (
+          <>
+            <label>X</label>
+            <input
+              type="range"
+              min={design.BODY_FRONT_OUTER.Xmin} //-29
+              max={design.BODY_FRONT_OUTER.Xmax} // 35
+              value={design.BODY_FRONT_OUTER.x * 100}
+              onChange={handleXRange}
+            />
+            <label>Y</label>
+            <input
+              type="range"
+              min={design.BODY_FRONT_OUTER.Ymin} //-40
+              max={design.BODY_FRONT_OUTER.Ymax} //8
+              value={design.BODY_FRONT_OUTER.y * 100}
+              onChange={handleYRange}
+            />
+          </>
+        )} */}
+
+      {part !== null &&
+        part !== 'ALL' &&
+        design[part].design.name !== 'whitePNG' && (
+          <>
+            <label>X</label>
+            <input
+              type="range"
+              min={design[part].Xmin} //-29
+              max={design[part].Xmax} // 35
+              value={design[part].x * 100}
+              onChange={handleXRange}
+              // onMouseUp={}
+            />
+            <label>Y</label>
+            <input
+              type="range"
+              min={design[part].Ymin} //-40
+              max={design[part].Ymax} //8
+              value={design[part].y * 100}
+              onChange={handleYRange}
+            />
+          </>
+        )}
 
       <Canvas camera={{ position: [13, 7, 117], fov: 40 }}>
         {/* <ambientLight intensity={1} color="fff" /> */}
@@ -135,7 +157,6 @@ function App() {
 
         <Suspense fallback={null}>
           <Tshirt
-            handleSetPart={handleSetPart}
             normalMap={texture.normal}
             bumpMap={texture.bump}
             design={design}

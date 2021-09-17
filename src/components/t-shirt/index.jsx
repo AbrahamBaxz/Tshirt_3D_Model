@@ -4,22 +4,23 @@ import { useGLTF } from '@react-three/drei';
 // import { TextureLoader } from 'three';
 
 const Tshirt = (props) => {
-  const { handleSetPart, normalMap, bumpMap, design } = props;
+  const { normalMap, bumpMap, design } = props;
+
+  const frontBodyOutRef = useRef(null);
+
   console.log(
     '%c 🧘‍♀️🧘‍♀️🧘‍♀️🧘‍♀️: Tshirt -> design ',
     'font-size:16px;background-color:#05de7b;color:black;',
     design
   );
+
   // console.log(
   //   '%c 🤞: range ',
   //   'font-size:16px;background-color:#b07888;color:white;',
   //   range.x
   // );
 
-  // const [hovered, set] = useState(null);
-
   // const ACBump = textLoader.load('bumpMaps/Fabric_034_height.png');
-  //const group = useRef();
 
   const { nodes } = useGLTF('compressed_t-shirt.glb');
 
@@ -31,7 +32,6 @@ const Tshirt = (props) => {
 
   return (
     <group
-      // ref={group}
       dispose={null}
       // onPointerOver={(e) => (
       //   e.stopPropagation(), handleSetPart(e.object.material.name)
@@ -43,9 +43,9 @@ const Tshirt = (props) => {
       // onPointerDown={(e) => (
       //   e.stopPropagation(), handleSetPart(null) //handleSetPart(e.object.material.name)
       // )}
-      onClick={(e) => (
-        e.stopPropagation(), handleSetPart(e.object.material.name)
-      )}
+      // onClick={(e) => (
+      //   e.stopPropagation(), handleSetPart(e.object.material.name)
+      // )}
     >
       <mesh
         geometry={nodes.BASE_RIB.geometry}
@@ -90,6 +90,7 @@ const Tshirt = (props) => {
         material-normalMap={normalMap}
         material-bumpMap={bumpMap}
         material-map={design.BODY_BACK_OUTER.design}
+        material-map-matrixAutoUpdate={design.BODY_FRONT_OUTER.status}
         material-map-offset-x={design.BODY_BACK_OUTER.x}
         material-map-offset-y={design.BODY_BACK_OUTER.y}
       />
@@ -101,6 +102,7 @@ const Tshirt = (props) => {
         material-normalMap={normalMap}
         material-bumpMap={bumpMap}
         material-map={design.SLEEVE_LEFT_OUTER.design}
+        material-map-matrixAutoUpdate={design.BODY_FRONT_OUTER.status}
         material-map-offset-x={design.SLEEVE_LEFT_OUTER.x}
         material-map-offset-y={design.SLEEVE_LEFT_OUTER.y}
       />
@@ -112,6 +114,7 @@ const Tshirt = (props) => {
         material-normalMap={normalMap}
         material-bumpMap={bumpMap}
         material-map={design.SLEEVE_RIGHT_OUTER.design}
+        material-map-matrixAutoUpdate={design.BODY_FRONT_OUTER.status}
         material-map-offset-x={design.SLEEVE_RIGHT_OUTER.x}
         material-map-offset-y={design.SLEEVE_RIGHT_OUTER.y}
       />
@@ -134,16 +137,23 @@ const Tshirt = (props) => {
 
       {/* BODY_FRONT_OUTER */}
       <mesh
+        ref={frontBodyOutRef}
         geometry={nodes.BASE_BODY_FRONT_OUTER.geometry}
         material={nodes.BASE_BODY_FRONT_OUTER.material}
         material-name={'BODY_FRONT_OUTER'}
         material-normalMap={normalMap}
         material-bumpMap={bumpMap}
         material-map={design.BODY_FRONT_OUTER.design}
-        material-map-offset-x={design.BODY_FRONT_OUTER.x}
-        material-map-offset-y={design.BODY_FRONT_OUTER.y}
+        material-map-matrixAutoUpdate={design.BODY_FRONT_OUTER.status}
+        // material-map-offset-x={design.BODY_FRONT_OUTER.x}
+        // material-map-offset-y={design.BODY_FRONT_OUTER.y}
+        material-map-center={[
+          design.BODY_FRONT_OUTER.x,
+          design.BODY_FRONT_OUTER.y,
+        ]}
       />
     </group>
   );
 };
+useGLTF.preload('compressed_t-shirt.glb');
 export default Tshirt;

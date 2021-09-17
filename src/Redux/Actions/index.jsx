@@ -24,6 +24,12 @@ export const changeToSleeveRightOuter = () => {
 };
 
 export const changePart = (part) => {
+  if (part === 'null')
+    return {
+      type: 'SET_PART',
+      payload: null,
+    };
+
   return {
     type: 'SET_PART',
     payload: part,
@@ -104,6 +110,12 @@ export const moveDesignY = (y, part) => {
   return {
     type: part.concat('_Y'),
     payload: y,
+  };
+};
+
+export const changeStatus = (axis, part) => {
+  return {
+    type: `${part}_${axis}_STATUS`,
   };
 };
 
