@@ -6,19 +6,6 @@ import { useGLTF } from '@react-three/drei';
 const Tshirt = (props) => {
   const { normalMap, bumpMap, design } = props;
 
-  const frontBodyOutRef = useRef(null);
-
-  useEffect(() => {
-    console.log(
-      '%c 👨‍🚀: Tshirt -> frontBodyOutRef ',
-      'font-size:16px;background-color:#4e22e2;color:white;',
-      frontBodyOutRef.current.material.map.offset
-    );
-
-    frontBodyOutRef.current.material.map.offset.x = design.BODY_FRONT_OUTER.x;
-    frontBodyOutRef.current.material.map.offset.y = design.BODY_FRONT_OUTER.y;
-  }, [design]);
-
   // console.log(
   //   '%c 🧘‍♀️🧘‍♀️🧘‍♀️🧘‍♀️: Tshirt -> design ',
   //   'font-size:16px;background-color:#05de7b;color:black;',
