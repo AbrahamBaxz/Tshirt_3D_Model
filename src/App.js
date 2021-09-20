@@ -29,6 +29,7 @@ function App() {
   // const normal = useSelector((state) => state.normal);
   // const bump = useSelector((state) => state.bump);
   const texture = useSelector((state) => state.texture);
+
   const design = useSelector((state) => state.design);
   // console.log(
   //   '%c 🚗: App -> design ',
@@ -134,7 +135,6 @@ function App() {
               max={design[part].Xmax} // 35
               value={design[part].x * 100}
               onChange={handleXRange}
-              // onMouseUp={}
             />
             <label>Y</label>
             <input

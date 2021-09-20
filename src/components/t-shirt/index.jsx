@@ -8,16 +8,21 @@ const Tshirt = (props) => {
 
   const frontBodyOutRef = useRef(null);
 
-  console.log(
-    '%c 🧘‍♀️🧘‍♀️🧘‍♀️🧘‍♀️: Tshirt -> design ',
-    'font-size:16px;background-color:#05de7b;color:black;',
-    design
-  );
+  useEffect(() => {
+    console.log(
+      '%c 👨‍🚀: Tshirt -> frontBodyOutRef ',
+      'font-size:16px;background-color:#4e22e2;color:white;',
+      frontBodyOutRef.current.material.map.offset
+    );
+
+    frontBodyOutRef.current.material.map.offset.x = design.BODY_FRONT_OUTER.x;
+    frontBodyOutRef.current.material.map.offset.y = design.BODY_FRONT_OUTER.y;
+  }, [design]);
 
   // console.log(
-  //   '%c 🤞: range ',
-  //   'font-size:16px;background-color:#b07888;color:white;',
-  //   range.x
+  //   '%c 🧘‍♀️🧘‍♀️🧘‍♀️🧘‍♀️: Tshirt -> design ',
+  //   'font-size:16px;background-color:#05de7b;color:black;',
+  //   design
   // );
 
   // const ACBump = textLoader.load('bumpMaps/Fabric_034_height.png');
@@ -145,8 +150,8 @@ const Tshirt = (props) => {
         material-bumpMap={bumpMap}
         material-map={design.BODY_FRONT_OUTER.design}
         material-map-matrixAutoUpdate={design.BODY_FRONT_OUTER.status}
-        material-map-offset-x={design.BODY_FRONT_OUTER.x}
-        material-map-offset-y={design.BODY_FRONT_OUTER.y}
+        // material-map-offset-x={design.BODY_FRONT_OUTER.x}
+        // material-map-offset-y={design.BODY_FRONT_OUTER.y}
       />
     </group>
   );

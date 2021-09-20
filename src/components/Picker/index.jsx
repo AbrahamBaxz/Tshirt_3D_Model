@@ -114,8 +114,7 @@ const Picker = (props) => {
       //texture.matrixAutoUpdate = false;
 
       if (applyAll) handleAddDesign(texture, 'ALL');
-
-      handleAddDesign(texture, currentPart);
+      else handleAddDesign(texture, currentPart);
     }
   };
 
