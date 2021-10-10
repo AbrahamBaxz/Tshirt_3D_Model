@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Stage, Layer, Rect, Image } from 'react-konva';
-import { Texture, TextureLoader } from 'three';
+import { TextureLoader } from 'three';
 import '../../App.css';
 import useImage from 'use-image';
 
@@ -111,6 +111,7 @@ const Picker = (props) => {
       //   img
       // );
       texture.flipY = false;
+
       //texture.matrixAutoUpdate = false;
 
       if (applyAll) handleAddDesign(texture, 'ALL');
@@ -140,8 +141,6 @@ const Picker = (props) => {
     const image = new window.Image();
     image.src = base64;
     setPic(image);
-
-    // console.log('sdfggagdgsdbff', base64);
   };
 
   const handleUploadPicture = async (e) => {

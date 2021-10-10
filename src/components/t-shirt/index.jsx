@@ -1,10 +1,15 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useGLTF } from '@react-three/drei';
+import { RepeatWrapping } from 'three';
 
 // import { TextureLoader } from 'three';
 
 const Tshirt = (props) => {
-  const { normalMap, bumpMap, design } = props;
+  const { normalMap, bumpMap, design, part } = props;
+
+  useEffect(() => {
+    console.log('T SHIRT RERENDERED');
+  });
 
   // console.log(
   //   '%c 🧘‍♀️🧘‍♀️🧘‍♀️🧘‍♀️: Tshirt -> design ',
@@ -21,6 +26,39 @@ const Tshirt = (props) => {
     'font-size:16px;background-color:#48748c;color:white;',
     nodes
   );
+
+  const updateUvTransform = () => {
+    Object.keys(design).forEach((key) => {
+      //design[key].design.matrixAutoUpdate = false;
+
+      if (part === key) {
+        console.log(
+          '%c 🇲🇱: updateUvTransform -> key ',
+          'font-size:16px;background-color:#9885f1;color:white;',
+          key,
+          part
+        );
+        const texture = design[key].design;
+        //design[key].design.matrixAutoUpdate = true;
+        const x = design[key].x;
+        const y = design[key].y;
+        texture.center.set(x, y);
+        design[key].design = texture;
+      }
+    });
+
+    // const texture = design.BODY_FRONT_OUTER.design;
+    // const x = design.BODY_FRONT_OUTER.x;
+    // const y = design.BODY_FRONT_OUTER.y;
+
+    // if (texture.matrixAutoUpdate === true) {
+    //   texture.center.set(x, y);
+    // } else {
+    //   texture.matrix.identity().translate(x, y);
+    // }
+
+    // design.BODY_FRONT_OUTER.design = texture;
+  };
 
   return (
     <group
@@ -82,7 +120,7 @@ const Tshirt = (props) => {
         material-normalMap={normalMap}
         material-bumpMap={bumpMap}
         material-map={design.BODY_BACK_OUTER.design}
-        material-map-matrixAutoUpdate={design.BODY_FRONT_OUTER.status}
+        //material-map-matrixAutoUpdate={design.BODY_FRONT_OUTER.status}
         material-map-offset-x={design.BODY_BACK_OUTER.x}
         material-map-offset-y={design.BODY_BACK_OUTER.y}
       />
@@ -94,7 +132,7 @@ const Tshirt = (props) => {
         material-normalMap={normalMap}
         material-bumpMap={bumpMap}
         material-map={design.SLEEVE_LEFT_OUTER.design}
-        material-map-matrixAutoUpdate={design.BODY_FRONT_OUTER.status}
+        //material-map-matrixAutoUpdate={design.BODY_FRONT_OUTER.status}
         material-map-offset-x={design.SLEEVE_LEFT_OUTER.x}
         material-map-offset-y={design.SLEEVE_LEFT_OUTER.y}
       />
@@ -106,7 +144,7 @@ const Tshirt = (props) => {
         material-normalMap={normalMap}
         material-bumpMap={bumpMap}
         material-map={design.SLEEVE_RIGHT_OUTER.design}
-        material-map-matrixAutoUpdate={design.BODY_FRONT_OUTER.status}
+        //material-map-matrixAutoUpdate={design.BODY_FRONT_OUTER.status}
         material-map-offset-x={design.SLEEVE_RIGHT_OUTER.x}
         material-map-offset-y={design.SLEEVE_RIGHT_OUTER.y}
       />
@@ -129,16 +167,20 @@ const Tshirt = (props) => {
 
       {/* BODY_FRONT_OUTER */}
       <mesh
-        ref={frontBodyOutRef}
         geometry={nodes.BASE_BODY_FRONT_OUTER.geometry}
         material={nodes.BASE_BODY_FRONT_OUTER.material}
         material-name={'BODY_FRONT_OUTER'}
         material-normalMap={normalMap}
         material-bumpMap={bumpMap}
         material-map={design.BODY_FRONT_OUTER.design}
-        material-map-matrixAutoUpdate={design.BODY_FRONT_OUTER.status}
-        // material-map-offset-x={design.BODY_FRONT_OUTER.x}
-        // material-map-offset-y={design.BODY_FRONT_OUTER.y}
+        material-map-center-x={design.BODY_FRONT_OUTER.x}
+        material-map-center-y={design.BODY_FRONT_OUTER.y}
+        material-map-repeat-x={0.5}
+        material-map-repeat-y={0.5}
+        material-map-wrapS={RepeatWrapping}
+        material-map-wrapT={RepeatWrapping}
+        material-map-needsUpdate={true}
+        material-needsUpdate={true}
       />
     </group>
   );

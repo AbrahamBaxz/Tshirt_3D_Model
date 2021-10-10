@@ -160,6 +160,7 @@ function App() {
             normalMap={texture.normal}
             bumpMap={texture.bump}
             design={design}
+            part={part}
           />
         </Suspense>
         <OrbitControls />
